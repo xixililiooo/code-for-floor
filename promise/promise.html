@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./promise_class.js"></script>
+    <script>
+        let p1 = Promise_self.resolveDelay(111,1000);
+        let p2 = Promise_self.resolveDelay(222,2000);
+        let p3 = Promise_self.rejectDelay(333,3000);
+        p1.then(
+            value=>{
+                console.log(value);
+            },
+            reason=>{
+                console.log(reason);
+            }
+        )
+        p2.then(
+            value=>{
+                console.log(value);
+            },
+            reason=>{
+                console.log(reason);
+            }
+        )
+        p3.catch(
+            reason=>{
+                console.log(reason);
+            }
+        )
+        let pAll = Promise_self.all([p1,p2,9]);
+        pAll.then(
+            value=>{
+                console.log(value);
+            },
+            reason=>{
+                console.log(reason);
+            }
+        )
+        let pRace = Promise_self.race([p1,p2,p3,9]);
+        pRace.then(
+            value=>{
+                console.log(value);
+            },
+            reason=>{
+                console.log(reason);
+            }
+        )
+    </script>
+</body>
+</html>

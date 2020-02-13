@@ -1,0 +1,51 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            async的相关知识
+
+            async 左边紧接的操作是同步执行的
+            async 后面的操作才放入微任务队列
+
+        */  
+
+        let p = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve('一秒后promise改变成resolved')
+            },1000)
+        })
+        p.then(
+            value=>{
+                console.log('value',value);
+            },
+            reason=>{
+                console.log('reason',reason);
+            }
+        )
+
+        let p1 = Promise.reject(1);//返回一个失败状态的promise
+        // let p2 = Promise.resolve(Promise.reject(2));
+        let p3 = Promise.resolve(Promise.resolve(3));
+        let p4 = new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve(4);
+            },2000)
+        })
+        let pRace = Promise.race([p1,p3,p4,100]);
+        pRace.then(
+            value=>{
+                console.log('value',value);
+            },
+            reason=>{
+                console.log('reason',reason);
+            }
+        )
+    </script>
+</body>
+</html>
